@@ -26,7 +26,7 @@ az deployment group create \
 
 ## Undeploy using
 
-Pre-requisite:
+Prerequisites:
 * Make sure to not have any backup data left in the Recovery Services vault before proceeding
 
 ```
