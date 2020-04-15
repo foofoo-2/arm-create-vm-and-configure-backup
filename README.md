@@ -2,7 +2,7 @@
 
 This template allows you to deploy simple Windows VM and Recovery Services Vault configured with the DefaultPolicy for Protection.
 
-Deploy using:
+## Deploy using
 
 ```
 # Login to Azure
@@ -24,7 +24,10 @@ az deployment group create \
   --parameters test-vm-01.parameters.json
 ```
 
-Undeploy using:
+## Undeploy using
+
+Pre-requisite:
+* Make sure to not have any backup data left in the Recovery Services vault before proceeding
 
 ```
 # Login to Azure
