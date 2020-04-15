@@ -37,5 +37,4 @@ az deployment group delete \
 
 # Delete Resource Group
 az group delete --name arm-test-rg
-
 ```
