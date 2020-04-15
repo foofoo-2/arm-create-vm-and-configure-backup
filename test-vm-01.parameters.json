@@ -1,0 +1,34 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "projectName": {
+      "value": "armtests"
+    },
+    "adminUsername": {
+      "value": "azureuser"
+    },
+    "adminPassword": {
+      "value": "<very-secret-password>"
+    },
+    "dnsLabelPrefix": {
+      "value": "test-vm-01"
+    },
+    "vmSize": {
+      "value": "Standard_B2ms"
+    },
+    "location": {
+      "value": "eastus"
+    },
+    "resourceTags": {
+      "value": {
+       "Owner": "mail@company.com",
+       "ManagedBy": "CMS Operations",
+       "Project": "CloudAssessment"
+      }
+    },
+    "sourceAddressPrefix": {
+      "value": "178.194.213.130"
+    }
+  }
+}

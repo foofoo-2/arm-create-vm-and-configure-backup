@@ -34,6 +34,19 @@
         "description": "Specifies the unique DNS Name for the Public IP used to access the Virtual Machine."
       }
     },
+    "resourceTags": {
+      "type": "object",
+      "metadata": {
+        "description": "Tag(s) to be assigned to the Virtual Machine."
+      }
+    },
+    "vmSize": {
+      "type": "string",
+      "defaultValue": "Standard_D2_v3",
+      "metadata": {
+        "description": "Size of the virtual machine."
+      }
+    },
     "windowsOSVersion": {
       "type": "string",
       "defaultValue": "2016-Datacenter",
@@ -47,6 +60,13 @@
       ],
       "metadata": {
         "description": "Specifies the Windows version for the VM. This will pick a fully patched image of this given Windows version. Allowed values: 2008-R2-SP1, 2012-Datacenter, 2012-R2-Datacenter, 2016-Nano-Server, 2016-Datacenter-with-Containers, 2016-Datacenter."
+      }
+    },
+    "sourceAddressPrefix": {
+      "type": "string",
+      "defaultValue": "*",
+      "metadata": {
+        "description": "Specifies the IP source address prefix allowed to connect to RDP and WinRM."
       }
     }
   },
@@ -106,9 +126,22 @@
               "direction": "Inbound",
               "destinationPortRange": "3389",
               "protocol": "Tcp",
-              "sourceAddressPrefix": "*",
+              "sourceAddressPrefix": "[parameters('sourceAddressPrefix')]",
               "sourcePortRange": "*",
               "destinationAddressPrefix": "*"
+            }
+          },
+          {
+            "name":  "default-allow-5985",
+            "properties": {
+              "priority":  1001,
+              "access":  "Allow",
+              "direction":  "Inbound",
+              "destinationPortRange":  "5985",
+              "protocol":  "Tcp",
+              "sourceAddressPrefix": "[parameters('sourceAddressPrefix')]",
+              "sourcePortRange":  "*",
+              "destinationAddressPrefix":  "*"
             }
           }
         ]
@@ -172,13 +205,14 @@
       "apiVersion": "2018-10-01",
       "name": "[variables('vmName')]",
       "location": "[parameters('location')]",
+      "tags": "[parameters('resourceTags')]",
       "dependsOn": [
         "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
         "[resourceId('Microsoft.Network/networkInterfaces', variables('networkInterfaceName'))]"
       ],
       "properties": {
         "hardwareProfile": {
-          "vmSize": "Standard_A2"
+          "vmSize": "[parameters('vmSize')]"
         },
         "osProfile": {
           "computerName": "[variables('vmName')]",
